@@ -28,7 +28,6 @@ namespace robodog {
     let rxPacketLength = 20;
     let rxHeadMatchCount = 0;
     let ledData = pins.createBuffer(34);
-    let strData = pins.createBuffer(10);
     export let counter = 0;
     let radioInit = false;
     let radioTxIndex = 0;
@@ -756,13 +755,11 @@ namespace robodog {
 
         let qrLength = 0;
         for (let i = 0; i < 8; i++) {
-            let value = aiData[2 + i]
-            if (value == 0)
+            if (aiData[2 + i] == 0)
                 break
-            strData[i] = value;
             qrLength += 1;
         }
-        return strData.slice(0, qrLength).toString();
+        return aiData.slice(2, qrLength).toString();
     }
 
     //% blockId=robodog_get_ai_position
