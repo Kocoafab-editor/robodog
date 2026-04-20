@@ -31,7 +31,6 @@ namespace robodog {
     let strData = pins.createBuffer(10);
     export let counter = 0;
     let radioInit = false;
-    let radioBand = 7;
     let radioTxIndex = 0;
     let isExtPacketEnabled = false;
     let rotationWaitRelative = false;
@@ -113,16 +112,10 @@ namespace robodog {
         timerCnt += 1;
     }
 
-    function ensureRadioInitialized(): void {
-        if (radioInit)
-            return;
-        radio.setGroup(14)
-        radio.setFrequencyBand(radioBand);
-        radioInit = true;
-    }
-
     function serviceRadioTx(): void {
-        ensureRadioInitialized();
+        if (!radioInit)
+            return;
+
         if (isExtPacketEnabled) {
             extTxData[5] = checksum(extTxData);
             radio.sendBuffer(extTxData);
@@ -442,12 +435,12 @@ namespace robodog {
     //% group="Connection"
     //% weight=109
     export function rfBand(band: number): void {
-        if (!isRadioMode())
-            return;
         if (radioInit)
             return;
-        radioBand = deflib.constrain(band, 0, 79);
-        ensureRadioInitialized();
+        band = deflib.constrain(band, 0, 79);
+        radio.setGroup(14)
+        radio.setFrequencyBand(band);
+        radioInit = true;
     }
 
 
