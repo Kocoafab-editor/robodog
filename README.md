@@ -24,29 +24,36 @@ You can find more information about Robodog Bigeye through the link below.
 ## 기본 사용법(Basic usage)
 
 ```typescript
-robodog.gesture(Deflib.posture.ready)
-robodog.leg_bend(Deflib.whatlegs.all_legs, 60)
-robodog.move(Deflib.front_back.front, 50)
+robodog.setMode(deflib.RobodogMode.Uart)
+```
+
+* 기본 통신 방식은 UART입니다. ``Robodog:Connection`` 블록에서 UART 또는 라디오 방식을 선택할 수 있습니다.
+* UART is the default transport. Use the ``Robodog:Connection`` blocks to select UART or radio mode.
+
+```typescript
+robodog.gesture(deflib.Posture.Ready)
+robodog.legBend(deflib.LegGroup.AllLegs, 60)
+robodog.move(deflib.MoveDirection.Forward, 50)
 basic.pause(1000)
-robodog.move(Deflib.front_back.front, 0)
+robodog.move(deflib.MoveDirection.Forward, 0)
 ```
 
 * ``Robodog:Motion`` 블록을 사용해 로보독의 자세, 다리 높이, 이동 방향과 속도를 제어합니다.
 * Use ``Robodog:Motion`` blocks to control the posture, leg height, movement direction, and speed.
 
 ```typescript
-robodog.rotation(Deflib.rotate_dir.cw, 90, 80)
-robodog.rotation_absolute(0, 100)
+robodog.rotation(deflib.RotateDirection.Clockwise, 90, 80)
+robodog.rotationAbsolute(0, 100)
 ```
 
 * ``Robodog:turn`` 블록은 현재 방향 기준으로 회전하고, ``Robodog:return`` 블록은 시작 방향으로 되돌립니다.
 * The turn block rotates Robodog from the current direction, and the return block turns it back to the start direction.
 
 ```typescript
-robodog.headled_exp(Deflib.led_draw.zero)
-robodog.headled_print(Deflib.left_right.both, "A")
-robodog.bodyled(0, 128, 255)
-robodog.sound_play(Deflib.mp3_list._1, Deflib.mp3_volume.middle)
+robodog.headLedExp(deflib.LedExpression.SparklingEyes)
+robodog.headLedPrint(deflib.HeadLedSide.Both, "A")
+robodog.bodyLed(0, 128, 255)
+robodog.soundPlay(deflib.SoundEffect.Bark, deflib.SoundVolume.Medium)
 ```
 
 * ``Robodog:LED`` 블록으로 헤드 LED 표정, 문자, 바디 LED 색상을 출력하고 ``Robodog:Sound`` 블록으로 효과음을 재생합니다.
@@ -54,16 +61,41 @@ robodog.sound_play(Deflib.mp3_list._1, Deflib.mp3_volume.middle)
 
 ```typescript
 basic.forever(function () {
-    serial.writeValue("battery", robodog.get_battery())
-    serial.writeValue("distance", robodog.get_tof())
-    serial.writeValue("tilt", robodog.get_tilt(Deflib.lr_fb.fb))
-    serial.writeValue("rotation", robodog.get_rotation())
+    serial.writeValue("battery", robodog.getBattery())
+    serial.writeValue("distance", robodog.getTof())
+    serial.writeValue("tilt", robodog.getTilt(deflib.TiltAxis.ForwardBackward))
+    serial.writeValue("rotation", robodog.getRotation())
     basic.pause(1000)
 })
 ```
 
 * ``Robodog:Sensors`` 블록으로 버튼, 배터리, 거리센서, 기울기, 회전 값을 읽을 수 있습니다.
 * Use ``Robodog:Sensors`` blocks to read button, battery, distance sensor, tilt, and rotation values.
+
+## 라디오와 AI 사용법(Radio and AI usage)
+
+라디오 통신을 사용하려면 시작할 때 로보독을 라디오 모드로 설정하고 라디오 밴드를 지정합니다. AI 블록은 라디오 패킷 경로를 사용합니다.
+
+To use radio communication, set Robodog to radio mode on start and configure the radio band. AI blocks use the radio packet path.
+
+```typescript
+robodog.setMode(deflib.RobodogMode.Radio)
+robodog.rfBand(7)
+robodog.move(deflib.MoveDirection.Forward, 50)
+```
+
+```typescript
+robodog.setMode(deflib.RobodogMode.Radio)
+robodog.rfBand(7)
+robodog.aiDetection(deflib.AiMode.FaceDetect)
+robodog.faceTracking(deflib.AiClass.Class1)
+
+basic.forever(function () {
+    serial.writeLine("camera: " + (robodog.getCameraAlive() ? "true" : "false"))
+    serial.writeValue("face", robodog.getFaceClass())
+    basic.pause(1000)
+})
+```
 
 ## 지원제품(Supported targets)
 
