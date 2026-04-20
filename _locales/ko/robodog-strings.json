@@ -28,7 +28,7 @@
   "robodog.soundPlay|group": "소리",
   "robodog.getButton|block": "버튼 눌림",
   "robodog.getButton|group": "센서",
-  "robodog.getBattery|block": "배터리 (%)",
+  "robodog.getBattery|block": "배터리 (\\%)",
   "robodog.getBattery|group": "센서",
   "robodog.getTof|block": "거리센서",
   "robodog.getTof|group": "센서",

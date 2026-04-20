@@ -28,7 +28,7 @@
   "robodog.soundPlay|group": "Sound",
   "robodog.getButton|block": "button is pressed",
   "robodog.getButton|group": "Sensors",
-  "robodog.getBattery|block": "battery (%)",
+  "robodog.getBattery|block": "battery (\\%)",
   "robodog.getBattery|group": "Sensors",
   "robodog.getTof|block": "distance sensor",
   "robodog.getTof|group": "Sensors",
