@@ -297,7 +297,7 @@ namespace robodog {
             return;
         updateRadioSensorState(receivedBuffer);
         cameraAlive = receivedBuffer[9];
-        for (let p = 0; p < 9 && (10 + p) < receivedBuffer.length; p++)
+        for (let p = 0; p < 10 && (10 + p) < receivedBuffer.length; p++)
             aiData[p] = receivedBuffer[10 + p];
     })
 
@@ -751,9 +751,18 @@ namespace robodog {
     export function getQrCode(): string {
         if (aiData[0] != 4)
             return "none";
-        for (let i = 0; i < 8; i++)
-            strData[i] = aiData[2 + i];
-        return strData.toString();
+        if (aiData[1] != 1)
+            return "none";
+
+        let qrLength = 0;
+        for (let i = 0; i < 8; i++) {
+            let value = aiData[2 + i]
+            if (value == 0)
+                break
+            strData[i] = value;
+            qrLength += 1;
+        }
+        return strData.slice(0, qrLength).toString();
     }
 
     //% blockId=robodog_get_ai_position
