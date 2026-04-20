@@ -416,6 +416,8 @@ namespace robodog {
     //% group="Connection"
     //% weight=109
     export function rfBand(band: number): void {
+        if (!isRadioMode())
+            return;
         if (radioInit)
             return;
         band = deflib.constrain(band, 0, 79);
@@ -596,7 +598,10 @@ namespace robodog {
 
     //% blockId=robodog_bodyled
     //% block="set Robodog body LED color to R:$r, G:$g, B:$b"
-    //%r.defl=255 g.defl=255 b.defl=255
+    //% r.min=0 r.max=255 r.defl=255
+    //% g.min=0 g.max=255 g.defl=255
+    //% b.min=0 b.max=255 b.defl=255
+    //% inlineInputMode=inline
     //% group="LED"
     //% weight=85
     export function bodyLed(r: number, g: number, b: number, mode?: deflib.RobodogMode): void {
