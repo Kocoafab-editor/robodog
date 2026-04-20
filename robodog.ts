@@ -486,7 +486,7 @@ namespace robodog {
 
 
     //% blockId=robodog_get_button
-    //% block="button"
+    //% block="button is pressed"
     //% group="Sensors"
     //% weight=59
     export function getButton(): boolean {
@@ -495,7 +495,7 @@ namespace robodog {
 
 
     //% blockId=robodog_get_battery
-    //% block="battery"
+    //% block="battery (%)"
     //% group="Sensors"
     //% weight=58
     export function getBattery(): number {
@@ -522,7 +522,7 @@ namespace robodog {
 
 
     //% blockId=robodog_get_rotation
-    //% block="rotation"
+    //% block="robodog heading (˚)"
     //% group="Sensors"
     //% weight=55
     export function getRotation(): number {
