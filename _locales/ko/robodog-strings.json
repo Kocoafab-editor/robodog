@@ -47,7 +47,7 @@
   "robodog.getBattery|group": "센서",
   "robodog.getTof|block": "거리센서",
   "robodog.getTof|group": "센서",
-  "robodog.getTilt|block": "기울기를 $what(으)로 읽기",
+  "robodog.getTilt|block": "$what 기울기 값",
   "robodog.getTilt|group": "센서",
   "robodog.getRotation|block": "로보독 방향 (˚)",
   "robodog.getRotation|group": "센서",

@@ -47,7 +47,7 @@
   "robodog.getBattery|group": "Sensors",
   "robodog.getTof|block": "distance sensor",
   "robodog.getTof|group": "Sensors",
-  "robodog.getTilt|block": "read tilt as $what",
+  "robodog.getTilt|block": "$what tilt value",
   "robodog.getTilt|group": "Sensors",
   "robodog.getRotation|block": "robodog heading (˚)",
   "robodog.getRotation|group": "Sensors",

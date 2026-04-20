@@ -26,7 +26,7 @@ basic.forever(function () {
     let tilt = robodog.getTilt(deflib.TiltAxis.ForwardBackward)
     let rotation = robodog.getRotation()
 
-    if (cameraReady > 0 && robodog.getButton()) {
+    if (cameraReady && robodog.getButton()) {
         basic.showNumber(battery)
     } else if (faceClass > 0 || aiX != 0 || qrValue != "none") {
         robodog.headLedExp(deflib.LedExpression.SparklingEyes)
