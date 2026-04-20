@@ -2,7 +2,7 @@
 * Control Robodog
 */
 let legPos: number[][] = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 0], [1, 1, 0, 0], [0, 0, 1, 1], [1, 1, 1, 1]];
-//% groups='["연결", "동작", "LED", "소리", "센서", "AI 설정", "AI 데이터"]'
+//% groups='["Connection", "Motion", "LED", "Sound", "Sensors", "AI Settings", "AI Data"]'
 //% block="Robodog" weight=80 color=#376db5 icon="\uf1b0"
 namespace robodog {
     let isInit = 0;
@@ -431,7 +431,7 @@ namespace robodog {
 
     //% blockId=robodog_set_mode
     //% block="set Robodog to $mode mode"
-    //% group="연결"
+    //% group="Connection"
     //% weight=110
     export function setMode(mode: deflib.RobodogMode): void {
         setActiveMode(mode);
@@ -440,7 +440,7 @@ namespace robodog {
     //% blockId=robodog_rf_band
     //% block="set radio band to $band"
     //% band.min=0 band.max=79 band.defl=7
-    //% group="연결"
+    //% group="Connection"
     //% weight=109
     export function rfBand(band: number): void {
         if (radioInit)
@@ -453,7 +453,7 @@ namespace robodog {
 
 
     //% block="take $action posture with Robodog"
-    //% group="동작"
+    //% group="Motion"
     //% weight=100
     export function gesture(action: deflib.Posture): void {
         checkModeChange(0, 4);
@@ -464,7 +464,7 @@ namespace robodog {
     //% blockId=robodog_leg_bend
     //% block="set Robodog $legs walking height to $height"
     //% legs.defl=deflib.LegGroup.AllLegs height.defl=60
-    //% group="동작"
+    //% group="Motion"
     //% weight=99
     export function legBend(legs: deflib.LegGroup, height: number): void {
         checkModeChange(0, 1);
@@ -485,7 +485,7 @@ namespace robodog {
     //% block="set Robodog $leg leg height to $height and foot forward/backward to $fb"
     //% height.defl=60
     //% inlineInputMode=inline
-    //% group="동작"
+    //% group="Motion"
     //% weight=98
     export function leg(leg: deflib.LegSelection, height: number, fb: number): void {
         checkModeChange(-127, 2);
@@ -504,7 +504,7 @@ namespace robodog {
 
     //% block="set Robodog $leg shoulder to $deg1 degrees and knee to $deg2 degrees"
     //% inlineInputMode=inline
-    //% group="동작"
+    //% group="Motion"
     //% weight=97
     export function motor(leg: deflib.LegSelection, deg1: number, deg2: number): void {
         checkModeChange(-127, 3);
@@ -524,7 +524,7 @@ namespace robodog {
 
     //% block="move Robodog $dir at speed $velocity"
     //% velocity.defl=50
-    //% group="동작"
+    //% group="Motion"
     //% weight=96
     export function move(dir: deflib.MoveDirection, velocity: number): void {
         checkModeChange(0, 1);
@@ -537,7 +537,7 @@ namespace robodog {
     //% deg.min=0 deg.max=360 deg.defl=90
     //% velocity.min=10 velocity.max=100 velocity.defl=100
     //% inlineInputMode=inline
-    //% group="동작"
+    //% group="Motion"
     //% weight=95
     export function rotation(dir: deflib.RotateDirection, deg: number, velocity: number): void {
         let target = planRelativeRotationTarget(dir, deg);
@@ -549,7 +549,7 @@ namespace robodog {
     //% block="return Robodog to start direction"
     //% angle.min=0 angle.max=360 angle.defl=0
     //% velocity.min=10 velocity.max=100 velocity.defl=100
-    //% group="동작"
+    //% group="Motion"
     //% weight=94
     export function rotationAbsolute(angle: number = 0, velocity: number = 100): void {
         let target = planAbsoluteRotationTarget(angle);
@@ -631,7 +631,7 @@ namespace robodog {
 
     //% blockId=robodog_sound_play
     //% block="play sound effect $what at $volume volume"
-    //% group="소리"
+    //% group="Sound"
     //% weight=79
     export function soundPlay(what: deflib.SoundEffect, volume: deflib.SoundVolume): void {
         let id = (txData[7] & 0x80) == 0x80 ? 0x00 : 0x80;
@@ -641,7 +641,7 @@ namespace robodog {
 
     //% blockId=robodog_ai_detection
     //% block="run AI $what"
-    //% group="AI 설정"
+    //% group="AI Settings"
     //% weight=69
     export function aiDetection(what: deflib.AiMode): void {
         setActiveMode(deflib.RobodogMode.Radio);
@@ -651,7 +651,7 @@ namespace robodog {
 
     //% blockId=robodog_face_tracking
     //% block="track $what face"
-    //% group="AI 설정"
+    //% group="AI Settings"
     //% weight=68
     export function faceTracking(what: deflib.AiClass): void {
         setActiveMode(deflib.RobodogMode.Radio);
@@ -663,7 +663,7 @@ namespace robodog {
 
     //% blockId=robodog_get_button
     //% block="button is pressed"
-    //% group="센서"
+    //% group="Sensors"
     //% weight=59
     export function getButton(): boolean {
         return buttonPressed;
@@ -672,7 +672,7 @@ namespace robodog {
 
     //% blockId=robodog_get_battery
     //% block="battery (\\%)"
-    //% group="센서"
+    //% group="Sensors"
     //% weight=58
     export function getBattery(): number {
         return battery;
@@ -681,7 +681,7 @@ namespace robodog {
 
     //% blockId=robodog_get_tof
     //% block="distance sensor"
-    //% group="센서"
+    //% group="Sensors"
     //% weight=57
     export function getTof(): number {
         return tof;
@@ -690,7 +690,7 @@ namespace robodog {
 
     //% blockId=robodog_get_tilt
     //% block="read tilt as $what"
-    //% group="센서"
+    //% group="Sensors"
     //% weight=56
     export function getTilt(what: deflib.TiltAxis): number {
         return what == deflib.TiltAxis.LeftRight ? roll : pitch;
@@ -699,7 +699,7 @@ namespace robodog {
 
     //% blockId=robodog_get_rotation
     //% block="robodog heading (˚)"
-    //% group="센서"
+    //% group="Sensors"
     //% weight=55
     export function getRotation(): number {
         return yaw;
@@ -707,7 +707,7 @@ namespace robodog {
 
     //% blockId=robodog_get_camera_alive
     //% block="AI camera ready"
-    //% group="AI 데이터"
+    //% group="AI Data"
     //% weight=49
     export function getCameraAlive(): number {
         return cameraAlive;
@@ -715,7 +715,7 @@ namespace robodog {
 
     //% blockId=robodog_get_face_class
     //% block="face detection class"
-    //% group="AI 데이터"
+    //% group="AI Data"
     //% weight=48
     export function getFaceClass(): number {
         if (aiData[0] != 1)
@@ -725,7 +725,7 @@ namespace robodog {
 
     //% blockId=robodog_get_face_tracking
     //% block="face tracking"
-    //% group="AI 데이터"
+    //% group="AI Data"
     //% weight=47
     export function getFaceTracking(): number {
         if (aiData[0] != 2)
@@ -735,7 +735,7 @@ namespace robodog {
 
     //% blockId=robodog_get_color_detect
     //% block="color detection class"
-    //% group="AI 데이터"
+    //% group="AI Data"
     //% weight=46
     export function getColorDetect(): number {
         if (aiData[0] != 3)
@@ -745,7 +745,7 @@ namespace robodog {
 
     //% blockId=robodog_get_qr_code
     //% block="QR code value"
-    //% group="AI 데이터"
+    //% group="AI Data"
     //% weight=45
     export function getQrCode(): string {
         if (aiData[0] != 4)
@@ -764,7 +764,7 @@ namespace robodog {
 
     //% blockId=robodog_get_ai_position
     //% block="recognized result $what position"
-    //% group="AI 데이터"
+    //% group="AI Data"
     //% weight=44
     export function getAiPosition(what: deflib.AiPositionAxis): number {
         let val = what == deflib.AiPositionAxis.X ? aiData[2] : aiData[3];

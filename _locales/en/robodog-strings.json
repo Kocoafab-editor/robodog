@@ -1,6 +1,13 @@
 {
   "robodog|block": "Robodog",
   "robodog|groups": "[\"Connection\", \"Motion\", \"LED\", \"Sound\", \"Sensors\", \"AI Settings\", \"AI Data\"]",
+  "{id:group}Connection": "Connection",
+  "{id:group}Motion": "Motion",
+  "{id:group}LED": "LED",
+  "{id:group}Sound": "Sound",
+  "{id:group}Sensors": "Sensors",
+  "{id:group}AI Settings": "AI Settings",
+  "{id:group}AI Data": "AI Data",
   "robodog.headLedImageLiteral|block": "headled image",
   "robodog.setMode|block": "set Robodog to $mode mode",
   "robodog.setMode|group": "Connection",
