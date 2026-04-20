@@ -83,6 +83,13 @@ namespace robodog {
         extTxData[4] = 0x09; extTxData[6] = 0x01;
     }
 
+    function ensurePacketsInitialized(): void {
+        if (isInit != 0)
+            return;
+        initializePackets();
+        isInit = 1;
+    }
+
     function updateAlternatingLedPayload(): void {
         if ((txData[14] & 0xC0) != 0xC0)
             return;
@@ -146,19 +153,15 @@ namespace robodog {
     }
 
     loops.everyInterval(10, function () {
-        if (isInit == 0) {
-            initializePackets();
-            isInit = 1;
-        }
-
-        if (isRadioMode()) {
-            if ((counter % 3) == 0)
-                serviceRadioTx();
-            counter += 1;
-        }
-        else {
+        ensurePacketsInitialized();
+        if (!isRadioMode())
             serviceUartTx();
-        }
+    });
+
+    loops.everyInterval(30, function () {
+        ensurePacketsInitialized();
+        if (isRadioMode())
+            serviceRadioTx();
     });
 
     function consumeSerialRx(): void {
@@ -644,7 +647,6 @@ namespace robodog {
     export function aiDetection(what: deflib.AiMode): void {
         setActiveMode(deflib.RobodogMode.Radio);
         extTxData[7] = what | 0x10;
-        extTxData[8] = 0;
         isExtPacketEnabled = true;
     }
 
